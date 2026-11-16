@@ -24,6 +24,7 @@ An end-to-end, containerised churn-prediction system: train and compare two mode
 | **Full pipeline, holdout** | **0.852** |
 | PyTorch challenger, holdout | 0.849 |
 ![MLflow run comparison](docs/mlflow-comparison.png)
+![FastAPI prediction](docs/fastapi-prediction.png)
 Recall of actual churners on the holdout: **0.642** at threshold 0.50, **0.753** at threshold 0.35 (the retention threshold used by the API). The scikit-learn pipeline is served because it matches the neural network's accuracy on this small tabular dataset while keeping preprocessing and prediction in one reviewed artifact.
 
 ## Project structure
