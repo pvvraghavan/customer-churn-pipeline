@@ -1,5 +1,16 @@
 # Customer Churn Pipeline
 
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-ML%20Pipeline-F7931E?style=flat&logo=scikitlearn&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-Challenger%20Model-EE4C2C?style=flat&logo=pytorch&logoColor=white)
+![MLflow](https://img.shields.io/badge/MLflow-Experiment%20Tracking-0194E2?style=flat&logo=mlflow&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Prediction%20API-009688?style=flat&logo=fastapi&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Containerised-2496ED?style=flat&logo=docker&logoColor=white)
+![Data](https://img.shields.io/badge/Data-Synthetic-lightgrey?style=flat)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=flat)
+
+**Quick links:** [Results](#results-seed-42-8020-stratified-split) · [Screenshots](#screenshots) · [Run it](#run-it) · [Limitations](#limitations-and-next-steps)
+
 An end-to-end, containerised churn-prediction system: train and compare two models (scikit-learn and PyTorch), track every run in MLflow, and serve the selected pipeline through a FastAPI service running in Docker.
 
 > Built on a **synthetic dataset** (2,500 generated customers) as a hands-on MLOps project, following a guided project brief. The goal is the engineering workflow, not a real-world benchmark.
@@ -23,9 +34,20 @@ An end-to-end, containerised churn-prediction system: train and compare two mode
 | Full pipeline, 5-fold CV on train set | 0.827 ± 0.015 |
 | **Full pipeline, holdout** | **0.852** |
 | PyTorch challenger, holdout | 0.849 |
-![MLflow run comparison](docs/mlflow-comparison.png)
-![FastAPI prediction](docs/fastapi-prediction.png)
+
 Recall of actual churners on the holdout: **0.642** at threshold 0.50, **0.753** at threshold 0.35 (the retention threshold used by the API). The scikit-learn pipeline is served because it matches the neural network's accuracy on this small tabular dataset while keeping preprocessing and prediction in one reviewed artifact.
+
+## Screenshots
+
+**MLflow: scikit-learn pipeline vs PyTorch challenger**
+
+![MLflow run comparison](docs/mlflow-comparison.png)
+
+*NaN = metric not logged for that run.*
+
+**FastAPI: live prediction from the container**
+
+![FastAPI prediction](docs/fastapi-prediction.png)
 
 ## Project structure
 
@@ -70,7 +92,8 @@ docker build -t customer-churn-api:latest .
 docker run -d --name customer-churn-api -p 127.0.0.1:8000:8000 customer-churn-api:latest
 ```
 
-Example request:
+<details>
+<summary><b>Example request and response (click to expand)</b></summary>
 
 ```json
 {
@@ -84,6 +107,8 @@ Example request:
 ```
 
 Response: `{"churn_probability": <0-1>, "risk_label": "high" | "standard"}`
+
+</details>
 
 ## Limitations and next steps
 
